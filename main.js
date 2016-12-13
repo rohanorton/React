@@ -67,12 +67,7 @@ var UserForm = React.createClass({
     // append the username on based on the
     // value of the input field
     var url = gitHubAPI.url + input.value;
-    getJson(url, function (data) {
-      ReactDOM.render(
-        <UserDetails login={data.login} avatar={data.avatar_url} bio={data.bio} link={data.html_url} />,
-        document.getElementById('mainPane')
-      );
-    });
+    this.props.onSubmit(url);
   },
   render: function() {
     return (
@@ -85,6 +80,16 @@ var UserForm = React.createClass({
 });
 
 var App = React.createClass({
+
+  onFormSubmit: function (url) {
+    getJson(url, function (data) {
+      ReactDOM.render(
+        <UserDetails login={data.login} avatar={data.avatar_url} bio={data.bio} link={data.html_url} />,
+        document.getElementById('mainPane')
+      );
+    });
+  },
+
   render: function () {
     return (
       <div>
@@ -99,7 +104,7 @@ var App = React.createClass({
               <div className="col-md-4">
                 <div id="leftPane">
 
-                  <UserForm />
+                  <UserForm onSubmit={this.onFormSubmit} />
 
                 </div>
               </div>
