@@ -1,0 +1,25 @@
+html, body, #page,
+#page .container,
+#page .row,
+#page .col-md-4,
+#page .col-md-8,
+#page #leftPane,
+#page #mainPane {
+  height: 100%;
+  min-height: 100%;
+}
+body {
+  padding-top: 50px;
+}
+
+#page {
+  padding: 30px 0;
+}
+
+#leftPane {
+
+}
+
+#mainPane h1 {
+  margin-top: 0;
+}
