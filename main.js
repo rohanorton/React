@@ -40,6 +40,17 @@ var NavBar = React.createClass({
   }
 });
 
+
+// Explain to the user what to do
+var Intro = React.createClass({
+  render: function() {
+    return (
+      <p>Enter a GitHub username in the input fields below and click the submit button to see the user profile.</p>
+    );
+  }
+});
+
+
 var App = React.createClass({
   render: function () {
     return (
@@ -50,7 +61,7 @@ var App = React.createClass({
         {/* Left sidebar */}
         <div id="page">
           <div className="container">
-            <div id="intro"></div>
+            <Intro />
             <div className="row">
               <div className="col-md-4">
                 <div id="leftPane">
@@ -74,20 +85,6 @@ ReactDOM.render(
   document.getElementById('app')
 );
 
-
-// Explain to the user what to do
-var Intro = React.createClass({
-  render: function() {
-    return (
-      <p>Enter a GitHub username in the input fields below and click the submit button to see the user profile.</p>
-    );
-  }
-});
-
-ReactDOM.render(
-  <Intro/>,
-  document.getElementById('intro')
-);
 
 // get the GitHub API link
 var gitHubAPI = {
