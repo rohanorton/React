@@ -57,8 +57,12 @@ var gitHubAPI = {
 
 // Get the user and render the DOM elements for
 // the input field and button
-var User = React.createClass({
-  getUser: function() {
+var UserForm = React.createClass({
+  getUser: function(event) {
+
+    // Prevent form from attempting HTTP request
+    event.preventDefault();
+
     var input = document.getElementById('username');
     // append the username on based on the
     // value of the input field
@@ -72,10 +76,10 @@ var User = React.createClass({
   },
   render: function() {
     return (
-    <div id="userForm" className="form-inline">
+    <form id="userForm" className="form-inline" onSubmit={this.getUser}>
       <input type="text" id="username" className="form-control" defaultValue="rohanorton"/>
-      <input onClick={this.getUser} type="button" className="btn btn-default" value="Get User"/>
-    </div>
+      <input type="submit" className="btn btn-default" value="Get User"/>
+    </form>
     );
   }
 });
@@ -95,7 +99,7 @@ var App = React.createClass({
               <div className="col-md-4">
                 <div id="leftPane">
 
-                  <User />
+                  <UserForm />
 
                 </div>
               </div>
