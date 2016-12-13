@@ -111,6 +111,18 @@ ReactDOM.render(
   document.getElementById('app')
 );
 
+var UserDetails = React.createClass({
+ render: function() {
+   return (
+     <div className="user-details">
+      <h1>{this.props.login}</h1>
+      <img className="img-responsive img-thumbnail" width="300" height="300" src={this.props.avatar}/>
+      <p>{this.props.bio}</p>
+      <a className="btn btn-primary" href={this.props.link} target="_blank">View Full Profile</a>
+     </div>
+   );
+ }
+});
 
 // Get the user with AJAX
 function getUser(url) {
@@ -131,20 +143,6 @@ function getUser(url) {
      jsonData = this.responseText;
      // ...and parse it
      parsedData = JSON.parse(jsonData);
-
-     // put the returned data into their elements
-     var UserDetails = React.createClass({
-       render: function() {
-         return (
-           <div className="user-details">
-            <h1>{this.props.login}</h1>
-            <img className="img-responsive img-thumbnail" width="300" height="300" src={this.props.avatar}/>
-            <p>{this.props.bio}</p>
-            <a className="btn btn-primary" href={this.props.link} target="_blank">View Full Profile</a>
-           </div>
-         );
-       }
-     });
 
      ReactDOM.render(
        <UserDetails login={parsedData.login} avatar={parsedData.avatar_url} bio={parsedData.bio} link={parsedData.html_url} />,
