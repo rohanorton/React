@@ -94,10 +94,6 @@ var App = React.createClass({
 
       that.setState({ user: data });
 
-      ReactDOM.render(
-        <UserDetails login={data.login} avatar={data.avatar_url} bio={data.bio} link={data.html_url} />,
-        document.getElementById('mainPane')
-      );
     });
   },
 
@@ -121,6 +117,7 @@ var App = React.createClass({
               </div>
               <div className="col-md-8">
                 <div id="mainPane">
+                  {this.renderUserDetails()}
                 </div>
               </div>
             </div>
@@ -128,6 +125,18 @@ var App = React.createClass({
         </div>
       </div>
     );
+  },
+
+  renderUserDetails: function () {
+    var user = this.state.user;
+
+    if (user) {
+      return (
+        <UserDetails login={user.login} avatar={user.avatar_url} bio={user.bio} link={user.html_url} />
+      );
+    } else {
+      return null;
+    }
   }
 });
 
