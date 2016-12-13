@@ -63,7 +63,12 @@ var User = React.createClass({
     // append the username on based on the
     // value of the input field
     var url = gitHubAPI.url + input.value;
-    getUser(url);
+    getJson(url, function (data) {
+      ReactDOM.render(
+        <UserDetails login={data.login} avatar={data.avatar_url} bio={data.bio} link={data.html_url} />,
+        document.getElementById('mainPane')
+      );
+    });
   },
   render: function() {
     return (
@@ -124,8 +129,8 @@ var UserDetails = React.createClass({
  }
 });
 
-// Get the user with AJAX
-function getUser(url) {
+// Ajax GET request
+function getJson(url, callback) {
   var xhttp, jsonData, parsedData;
 
   // check that we have access to XMLHttpRequest
@@ -144,11 +149,7 @@ function getUser(url) {
      // ...and parse it
      parsedData = JSON.parse(jsonData);
 
-     ReactDOM.render(
-       <UserDetails login={parsedData.login} avatar={parsedData.avatar_url} bio={parsedData.bio} link={parsedData.html_url} />,
-       document.getElementById('mainPane')
-     );
-
+     callback(parsedData);
     }
   };
   xhttp.open("GET", url, true);
