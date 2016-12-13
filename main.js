@@ -63,7 +63,7 @@ var UserForm = React.createClass({
     // Prevent form from attempting HTTP request
     event.preventDefault();
 
-    var input = document.getElementById('username');
+    var input = this.refs.username;
     // append the username on based on the
     // value of the input field
     var url = gitHubAPI.url + input.value;
@@ -72,7 +72,7 @@ var UserForm = React.createClass({
   render: function() {
     return (
     <form id="userForm" className="form-inline" onSubmit={this.getUser}>
-      <input type="text" id="username" className="form-control" defaultValue="rohanorton"/>
+      <input type="text" ref="username" className="form-control" defaultValue="rohanorton"/>
       <input type="submit" className="btn btn-default" value="Get User"/>
     </form>
     );
