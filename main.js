@@ -50,14 +50,12 @@ var Intro = React.createClass({
   }
 });
 
-// get the GitHub API link
-var gitHubAPI = {
-  url: 'https://api.github.com/users/'
-}
 
 // Get the user and render the DOM elements for
 // the input field and button
 var UserForm = React.createClass({
+  githubUrl: 'https://api.github.com/users/'
+
   getUser: function(event) {
 
     // Prevent form from attempting HTTP request
@@ -66,7 +64,7 @@ var UserForm = React.createClass({
     var input = this.refs.username;
     // append the username on based on the
     // value of the input field
-    var url = gitHubAPI.url + input.value;
+    var url = this.githubUrl + input.value;
     this.props.onSubmit(url);
   },
   render: function() {
@@ -79,6 +77,19 @@ var UserForm = React.createClass({
   }
 });
 
+var UserDetails = React.createClass({
+ render: function() {
+   return (
+     <div className="user-details">
+      <h1>{this.props.login}</h1>
+      <img className="img-responsive img-thumbnail" width="300" height="300" src={this.props.avatar}/>
+      <p>{this.props.bio}</p>
+      <a className="btn btn-primary" href={this.props.link} target="_blank">View Full Profile</a>
+     </div>
+   );
+ }
+});
+
 var App = React.createClass({
 
   getInitialState: function () {
@@ -87,10 +98,37 @@ var App = React.createClass({
     };
   },
 
+  // Ajax GET request
+  getJson: function (url, callback) {
+    var xhttp, jsonData, parsedData;
+
+    // check that we have access to XMLHttpRequest
+    if(window.XMLHttpRequest) {
+      xhttp = new XMLHttpRequest();
+    } else {
+      // IE6, IE5
+      xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+
+        // get the data returned from the request...
+        jsonData = this.responseText;
+        // ...and parse it
+        parsedData = JSON.parse(jsonData);
+
+        callback(parsedData);
+      }
+    };
+    xhttp.open("GET", url, true);
+    xhttp.send();
+  },
+
   onFormSubmit: function (url) {
     var that = this;
 
-    getJson(url, function (data) {
+    this.getJson(url, function (data) {
 
       that.setState({ user: data });
 
@@ -145,42 +183,3 @@ ReactDOM.render(
   document.getElementById('app')
 );
 
-var UserDetails = React.createClass({
- render: function() {
-   return (
-     <div className="user-details">
-      <h1>{this.props.login}</h1>
-      <img className="img-responsive img-thumbnail" width="300" height="300" src={this.props.avatar}/>
-      <p>{this.props.bio}</p>
-      <a className="btn btn-primary" href={this.props.link} target="_blank">View Full Profile</a>
-     </div>
-   );
- }
-});
-
-// Ajax GET request
-function getJson(url, callback) {
-  var xhttp, jsonData, parsedData;
-
-  // check that we have access to XMLHttpRequest
-  if(window.XMLHttpRequest) {
-    xhttp = new XMLHttpRequest();
-  } else {
-    // IE6, IE5
-    xhttp = new ActiveXObject("Microsoft.XMLHTTP");
-  }
-
-  xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-
-     // get the data returned from the request...
-     jsonData = this.responseText;
-     // ...and parse it
-     parsedData = JSON.parse(jsonData);
-
-     callback(parsedData);
-    }
-  };
-  xhttp.open("GET", url, true);
-  xhttp.send();
-}
