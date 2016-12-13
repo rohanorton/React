@@ -137,17 +137,17 @@ function getUser(url) {
        render: function() {
          return (
            <div className="user-details">
-            <h1>{parsedData.login}</h1>
-            <img className="img-responsive img-thumbnail" width="300" height="300" src={parsedData.avatar_url}/>
-            <p>{parsedData.bio}</p>
-            <a className="btn btn-primary" href={parsedData.html_url} target="_blank">View Full Profile</a>
+            <h1>{this.props.login}</h1>
+            <img className="img-responsive img-thumbnail" width="300" height="300" src={this.props.avatar}/>
+            <p>{this.props.bio}</p>
+            <a className="btn btn-primary" href={this.props.link} target="_blank">View Full Profile</a>
            </div>
          );
        }
      });
 
      ReactDOM.render(
-       <UserDetails/>,
+       <UserDetails login={parsedData.login} avatar={parsedData.avatar_url} bio={parsedData.bio} link={parsedData.html_url} />,
        document.getElementById('mainPane')
      );
 
