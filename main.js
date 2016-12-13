@@ -81,8 +81,19 @@ var UserForm = React.createClass({
 
 var App = React.createClass({
 
+  getInitialState: function () {
+    return {
+      user: null
+    };
+  },
+
   onFormSubmit: function (url) {
+    var that = this;
+
     getJson(url, function (data) {
+
+      that.setState({ user: data });
+
       ReactDOM.render(
         <UserDetails login={data.login} avatar={data.avatar_url} bio={data.bio} link={data.html_url} />,
         document.getElementById('mainPane')
