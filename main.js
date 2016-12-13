@@ -6,11 +6,12 @@
 var NavBar = React.createClass({
   render: function() {
     var title = 'React GitHub API Users'
+    var root = window.location;
     var pages = ['home', 'services', 'portfolio', 'team', 'contact'];
     var navLinks = pages.map(function(page, index){
       return (
         <li key={'item_' + index}>
-          <a href={'/React/' + page}>{page}</a>
+          <a href={root + page}>{page}</a>
         </li>
       );
     });
