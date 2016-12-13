@@ -50,6 +50,30 @@ var Intro = React.createClass({
   }
 });
 
+// get the GitHub API link
+var gitHubAPI = {
+  url: 'https://api.github.com/users/'
+}
+
+// Get the user and render the DOM elements for
+// the input field and button
+var User = React.createClass({
+  getUser: function() {
+    var input = document.getElementById('username');
+    // append the username on based on the
+    // value of the input field
+    var url = gitHubAPI.url + input.value;
+    getUser(url);
+  },
+  render: function() {
+    return (
+    <div id="userForm" className="form-inline">
+      <input type="text" id="username" className="form-control" defaultValue="rohanorton"/>
+      <input onClick={this.getUser} type="button" className="btn btn-default" value="Get User"/>
+    </div>
+    );
+  }
+});
 
 var App = React.createClass({
   render: function () {
@@ -65,6 +89,8 @@ var App = React.createClass({
             <div className="row">
               <div className="col-md-4">
                 <div id="leftPane">
+
+                  <User />
 
                 </div>
               </div>
@@ -85,31 +111,6 @@ ReactDOM.render(
   document.getElementById('app')
 );
 
-
-// get the GitHub API link
-var gitHubAPI = {
-  url: 'https://api.github.com/users/'
-}
-
-// Get the user and render the DOM elements for
-// the input field and button
-var User = React.createClass({
-  getUser: function() {
-    var input = document.getElementById('username');
-    // append the username on based on the
-    // value of the input field
-    var url = gitHubAPI.url + input.value;
-    getUser(url);
-  },
-  render: function() {
-    return (
-    <div id="userForm" className="form-inline">
-      <input type="text" id="username" className="form-control"/>
-      <input onClick={this.getUser} type="button" className="btn btn-default" value="Get User"/>
-    </div>
-    );
-  }
-});
 
 // Get the user with AJAX
 function getUser(url) {
@@ -155,8 +156,3 @@ function getUser(url) {
   xhttp.open("GET", url, true);
   xhttp.send();
 }
-
-ReactDOM.render(
-  <User/>,
-  document.getElementById('leftPane')
-);
