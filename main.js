@@ -2,6 +2,41 @@
  * Get a user from the GitHub API using React JS and Vanilla JS
  */
 
+
+var App = React.createClass({
+  render: function () {
+    return (
+      <div>
+        {/* Navbar */}
+        <div id="navbarContainer"></div>
+
+        {/* Left sidebar */}
+        <div id="page">
+          <div className="container">
+            <div id="intro"></div>
+            <div className="row">
+              <div className="col-md-4">
+                <div id="leftPane">
+
+                </div>
+              </div>
+              <div className="col-md-8">
+                <div id="mainPane">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+});
+
+ReactDOM.render(
+  <App />,
+  document.getElementById('app')
+);
+
 // create a navbar (for demo purposes only)
 var NavBar = React.createClass({
   render: function() {
