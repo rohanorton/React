@@ -70,7 +70,7 @@ var UserForm = React.createClass({
   render: function() {
     return (
     <form id="userForm" className="form-inline" onSubmit={this.getUser}>
-      <input type="text" ref="username" className="form-control" defaultValue="rohanorton"/>
+      <input type="text" ref="username" className="form-control" />
       <input type="submit" className="btn btn-default" value="Get User"/>
     </form>
     );
